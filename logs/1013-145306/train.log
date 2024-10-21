@@ -1,0 +1,19 @@
+10-13 14:53:06 data_dir: /scratch/pranjal/Bayesian-Crowd-Counting/datasetsprocessed
+10-13 14:53:06 save_dir: /scratch/pranjal/Bayesian-Crowd-Counting/logs
+10-13 14:53:06 lr: 1e-05
+10-13 14:53:06 weight_decay: 0.0001
+10-13 14:53:06 resume: 
+10-13 14:53:06 max_model_num: 1
+10-13 14:53:06 max_epoch: 1000
+10-13 14:53:06 val_epoch: 5
+10-13 14:53:06 val_start: 600
+10-13 14:53:06 batch_size: 1
+10-13 14:53:06 device: 0
+10-13 14:53:06 num_workers: 8
+10-13 14:53:06 is_gray: False
+10-13 14:53:06 crop_size: 512
+10-13 14:53:06 downsample_ratio: 8
+10-13 14:53:06 use_background: True
+10-13 14:53:06 sigma: 8.0
+10-13 14:53:06 background_ratio: 1.0
+10-13 14:53:06 using 1 gpus
