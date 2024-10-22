@@ -29,3 +29,13 @@ Download the dataset from this [link](https://www.crcv.ucf.edu/data/ucf-qnrf/).
 Resize the images and split the data for training and validation using the following command:
 ```bash
 python preprocess_dataset.py --origin_dir <directory of original data> --data_dir <directory of processed data>
+
+#### 3. Testing Model(validate on single GTX Titan X)
+
+```bash
+python train.py --data_dir <directory of processed data> --save_dir <directory of log and model>
+
+
+
+
+
