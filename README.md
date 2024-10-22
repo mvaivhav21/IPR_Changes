@@ -10,7 +10,7 @@ torch >= 1.0 torchvision opencv numpy scipy, all the dependencies can be easily 
 
 This code was tested with python 3.6 , or you can simply do
 ```
-pip install requirements.txt
+pip install -r requirements.txt
 ```
 
 ###  Train and Test
