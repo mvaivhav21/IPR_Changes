@@ -5,7 +5,7 @@ from datasets.crowd import Crowd
 from models.vgg import vgg19
 import argparse
 
-os.environ['TORCH_HOME'] = '/scratch/vaibhav'
+# os.environ['TORCH_HOME'] = '/scratch/vaibhav'
 args = None
 def parse_args():
     parser = argparse.ArgumentParser(description='Test ')

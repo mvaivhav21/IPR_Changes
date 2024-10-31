@@ -5,7 +5,7 @@ import torch
 args = None
 import torchvision
 
-os.environ['TORCH_HOME'] = '/scratch/vaibhav'
+# os.environ['TORCH_HOME'] = '/scratch/vaibhav'
 
 def parse_args():
     parser = argparse.ArgumentParser(description='Train ')
