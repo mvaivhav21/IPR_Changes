@@ -12,20 +12,45 @@ class VGG(nn.Module):
     def __init__(self, features):
         super(VGG, self).__init__()
         self.features = features
-        self.reg_layer = nn.Sequential(
-            nn.Conv2d(512, 256, kernel_size=3, padding=1),
-            nn.ReLU(inplace=True),
-            nn.Conv2d(256, 128, kernel_size=3, padding=1),
-            nn.ReLU(inplace=True),
-            nn.Conv2d(128, 1, 1)
+
+        # Modified reg_layer with parallel paths for multi-scale feature extraction
+        self.reg_layer_3x3 = nn.Sequential(
+            nn.Conv2d(512, 128, kernel_size=3, padding=1),
+            nn.ReLU(inplace=True)
         )
+        
+        self.reg_layer_5x5 = nn.Sequential(
+            nn.Conv2d(512, 128, kernel_size=5, padding=2),
+            nn.ReLU(inplace=True)
+        )
+        
+        self.reg_layer_7x7 = nn.Sequential(
+            nn.Conv2d(512, 128, kernel_size=7, padding=3),
+            nn.ReLU(inplace=True)
+        )
+        
+        # Concatenated output from the parallel paths will be reduced to a single channel
+        self.output_layer = nn.Conv2d(128 * 3, 1, kernel_size=1)
 
     def forward(self, x):
+        # Feature extraction from VGG backbone
         x = self.features(x)
+        
+        # Upsample the features before applying regression layers
         x = F.upsample_bilinear(x, scale_factor=2)
-        x = self.reg_layer(x)
-        return torch.abs(x)
-
+        
+        # Apply parallel convolutional paths
+        x_3x3 = self.reg_layer_3x3(x)
+        x_5x5 = self.reg_layer_5x5(x)
+        x_7x7 = self.reg_layer_7x7(x)
+        
+        # Concatenate along the channel dimension
+        x = torch.cat((x_3x3, x_5x5, x_7x7), dim=1)  # Resulting in 128 * 3 channels
+        
+        # Reduce channels to 1 for density map output
+        x = self.output_layer(x)
+        
+        return torch.abs(x)  # Ensuring density values are non-negative
 
 def make_layers(cfg, batch_norm=False):
     layers = []
@@ -53,4 +78,3 @@ def vgg19():
     model = VGG(make_layers(cfg['E']))
     model.load_state_dict(model_zoo.load_url(model_urls['vgg19']), strict=False)
     return model
-
