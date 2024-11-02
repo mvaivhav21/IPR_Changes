@@ -6,7 +6,7 @@ from models.vgg import vgg19
 import argparse
 from torchvision import transforms
 
-os.environ['TORCH_HOME'] = '/scratch/vaibhav'
+# os.environ['TORCH_HOME'] = '/scratch/vaibhav'
 args = None
 
 def parse_args():
